@@ -1,0 +1,33 @@
+{
+  "name": "platform-game-js",
+  "version": "1.0.0",
+  "description": "> One paragraph statement about the project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpackWa": "npx webpack --watch",
+    "start": "webpack serve --open",
+    "webpack": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balerum03/Platform-game-JS.git"
+  },
+  "author": "Adan Fernandez B.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/balerum03/Platform-game-JS/issues"
+  },
+  "homepage": "https://github.com/balerum03/Platform-game-JS#readme",
+  "devDependencies": {
+    "css-loader": "^5.0.2",
+    "html-webpack-plugin": "^5.1.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.22.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "phaser": "^3.52.0"
+  }
+}
