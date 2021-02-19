@@ -13,7 +13,7 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpeg)$/,
-        type: 'asset/resource',
+        type: 'assets/resource',
       },
       {
         test: /\.css$/,
