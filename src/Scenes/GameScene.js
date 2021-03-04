@@ -47,7 +47,10 @@ export default class GameScene extends Phaser.Scene {
 
       player.anims.play('turn');
 
-      gameOver = true;
+      this.gameOver = true;
+      if (this.gameOver === true){
+        this.scene.start('Credits');
+      }
     };
 
     this.player = this.physics.add.sprite(100, 450, 'dude');
