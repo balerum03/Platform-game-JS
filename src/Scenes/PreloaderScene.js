@@ -78,7 +78,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('blueButton1', blue_button02);
     this.load.image('blueButton2', blue_button03);
     this.load.image('sky', sky);
-    this.load.image('ground', ground);
+    this.load.image('platform', ground);
     this.load.image('star', star);
     this.load.image('bomb', bomb);
     this.load.spritesheet('dude', dude, { frameWidth: 32,  frameHeight: 48});
