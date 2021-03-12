@@ -50,7 +50,7 @@ export default class CreditsScene extends Phaser.Scene {
     });
 
     this.menuButton = this.add.sprite(400, 500, 'blueButton1').setInteractive();
-    this.menuText = this.add.text(0, 0, 'RePlay', { fontSize: '32px', fill: '#fff' });
+    this.menuText = this.add.text(0, 0, 'Play', { fontSize: '32px', fill: '#fff' });
     Phaser.Display.Align.In.Center(this.menuText, this.menuButton);
     
     this.menuButton.on('pointerdown', function (pointer) {

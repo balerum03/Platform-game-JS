@@ -12,6 +12,19 @@ export default class GameScene extends Phaser.Scene {
   create () {
     this.score = 0;
     this.add.image(400, 300, 'sky');
+    this.addedPlatforms = 0;
+
+    this.starGroup = this.add.group({
+      removeCallback: function(star){
+        star.scene.starPool.add(star)
+      }
+    });
+
+    this.starPool = this.add.group({
+      removeCallback: function(star){
+        star.scene.starGroup.add(star)
+      }
+    });
 
     this.platformGroup = this.add.group({
       removeCallback: function(platform){
@@ -27,25 +40,28 @@ export default class GameScene extends Phaser.Scene {
 
     this.addPlatform(game.config.width, game.config.width / 2);
 
-    const collectStar=(player, star) =>
+    const collectStar= (player, star) =>
     {
       star.disableBody(true, true);
       this.score += 10;
       this.scoreText.setText(`Score: ${this.score}`);
-      if (this.stars.countActive(true) === 0)
-      {
+      if (this.stars.countActive(true) === 0) {
         this.stars.children.iterate(function (child) {
-
           child.enableBody(true, child.x, 0, true, true);
-
         });
 
-        this.x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
-
-        this.bomb = this.bombs.create(this.x, 16, 'bomb');
-        this.bomb.setBounce(1);
-        this.bomb.setCollideWorldBounds(true);
-        this.bomb.setVelocity(Phaser.Math.Between(-200, 200), 20);
+        this.tweens.add({
+          targets: star,
+          y: star.y - 100,
+          alpha: 0,
+          duration: 800,
+          ease: "Cubic.easeOut",
+          callbackScope: this,
+          onComplete: function(){
+              this.coinGroup.killAndHide(star);
+              this.coinGroup.remove(star);
+          }
+      });
       }
     };
 
@@ -94,7 +110,7 @@ export default class GameScene extends Phaser.Scene {
 
     this.physics.add.collider(this.stars, this.platformGroup);
 
-    this.physics.add.overlap(this.player, this.stars, collectStar, null, this);
+    this.physics.add.overlap(this.player, this.starGroup, collectStar, null, this);
     this.scoreText = this.add.text(16, 16, `Score: ${this.score}`, { fontSize: '32px', fill: '#000' });
 
     this.bombs = this.physics.add.group();
@@ -105,6 +121,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   addPlatform(platformWidth, posX){
+    this.addedPlatforms ++;
     let platform;
     if(this.platformPool.getLength()){
         platform = this.platformPool.getFirst();
@@ -125,7 +142,13 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update () {
+    if(this.player.y > game.config.height){
+      this.scene.start('Credits');
+    }
+    this.player.x = gameOptions.playerStartPosition;
+
     this.cursors = this.input.keyboard.createCursorKeys();
+
     if (this.player.body.touching.down)
     {
       this.player.anims.play('right', true);
