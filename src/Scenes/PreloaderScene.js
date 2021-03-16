@@ -1,7 +1,6 @@
 import 'phaser';
 import ground from '../assets/platform.png';
 import star from '../assets/star.png';
-import bomb from '../assets/bomb.png';
 import dude from '../assets/dude.png';
 import blue_button02 from '../assets/blue_button02.png';
 import blue_button03 from '../assets/blue_button03.png';
@@ -80,7 +79,6 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('sky', sky);
     this.load.image('platform', ground);
     this.load.image('star', star);
-    this.load.image('bomb', bomb);
     this.load.spritesheet('dude', dude, { frameWidth: 32,  frameHeight: 48});
     
   }

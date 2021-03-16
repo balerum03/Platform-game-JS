@@ -9,4 +9,5 @@ export default {
   bombPosition: 473,
   starUpPosition: 210,
   starDownPosition: 440,
+  starPercent: 25
 };

@@ -42,42 +42,11 @@ export default class GameScene extends Phaser.Scene {
 
     const collectStar= (player, star) =>
     {
-      star.disableBody(true, true);
       this.score += 10;
       this.scoreText.setText(`Score: ${this.score}`);
-      if (this.stars.countActive(true) === 0) {
-        this.stars.children.iterate(function (child) {
-          child.enableBody(true, child.x, 0, true, true);
-        });
-
-        this.tweens.add({
-          targets: star,
-          y: star.y - 100,
-          alpha: 0,
-          duration: 800,
-          ease: "Cubic.easeOut",
-          callbackScope: this,
-          onComplete: function(){
-              this.coinGroup.killAndHide(star);
-              this.coinGroup.remove(star);
-          }
-      });
-      }
-    };
-
-    const hitBomb = (player, bomb) =>
-    {
-      this.physics.pause();
-
-      player.setTint(0xff0000);
-
-      player.anims.play('turn');
-
-      this.gameOver = true;
-      if (this.gameOver === true){
-        this.scene.start('Credits');
-      }
-    };
+      this.starGroup.killAndHide(star);
+      this.starGroup.remove(star);
+    }
 
     this.player = this.physics.add.sprite(100, 250, 'dude');
 
@@ -85,60 +54,62 @@ export default class GameScene extends Phaser.Scene {
     this.player.setGravityY(gameOptions.playerGravity);
 
     this.anims.create({
-        key: 'turn',
-        frames: [ { key: 'dude', frame: 6 } ],
-        frameRate: 20
+      key: 'turn',
+      frames: [ { key: 'dude', frame: 6 } ],
+      frameRate: 20
     });
 
     this.anims.create({
-        key: 'right',
-        frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
-        frameRate: 10,
-        repeat: -1
+      key: 'right',
+      frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+      frameRate: 10,
+      repeat: -1
     });
+
     this.physics.add.collider(this.player, this.platformGroup);
-
-    this.stars = this.physics.add.group({
-      key: 'star',
-      repeat: 11,
-      setXY: { x: 12, y: 0, stepX: 70 }
-    });
-  
-    this.stars.children.iterate(function (child) {
-      child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    });
-
-    this.physics.add.collider(this.stars, this.platformGroup);
-
     this.physics.add.overlap(this.player, this.starGroup, collectStar, null, this);
     this.scoreText = this.add.text(16, 16, `Score: ${this.score}`, { fontSize: '32px', fill: '#000' });
 
-    this.bombs = this.physics.add.group();
-
-    this.physics.add.collider(this.bombs, this.platformGroup);
-
-    this.physics.add.collider(this.player, this.bombs, hitBomb, null, this);
   }
 
   addPlatform(platformWidth, posX){
     this.addedPlatforms ++;
     let platform;
     if(this.platformPool.getLength()){
-        platform = this.platformPool.getFirst();
-        platform.x = posX;
-        platform.active = true;
-        platform.visible = true;
-        this.platformPool.remove(platform);
+      platform = this.platformPool.getFirst();
+      platform.x = posX;
+      platform.active = true;
+      platform.visible = true;
+      this.platformPool.remove(platform);
     }
     else{
-        platform = this.physics.add.sprite(posX, game.config.height * 0.8, 'platform');
-        platform.body.allowGravity = false;
-        platform.setImmovable(true);
-        platform.setVelocityX(gameOptions.platformStartSpeed * -1);
-        this.platformGroup.add(platform);
+      platform = this.physics.add.sprite(posX, game.config.height * 0.8, 'platform');
+      platform.body.allowGravity = false;
+      platform.setImmovable(true);
+      platform.setVelocityX(gameOptions.platformStartSpeed * -1);
+      this.platformGroup.add(platform);
     }
     platform.displayWidth = platformWidth;
     this.nextPlatformDistance = Phaser.Math.Between(gameOptions.spawnRange[0], gameOptions.spawnRange[1]);
+
+    if(this.addedPlatforms > 1){
+      if(Phaser.Math.Between(1, 100) <= gameOptions.starPercent){
+        if(this.starPool.getLength()){
+          let star = this.starPool.getFirst();
+          star.x = posX;
+          star.active = true;
+          star.visible = true;
+          this.starPool.remove(star);
+        }
+        else{
+          let star = this.physics.add.image(posX, gameOptions.starDownPosition, 'star');
+          star.body.allowGravity = false;
+          star.setImmovable(true);
+          star.setVelocityX(platform.body.velocity.x);
+          this.starGroup.add(star);
+        }
+      }
+    }
   }
 
   update () {
