@@ -1,4 +1,4 @@
-import 'phaser';
+import Phaser from 'phaser';
 import ground from '../assets/platform.png';
 import star from '../assets/star.png';
 import dude from '../assets/dude.png';

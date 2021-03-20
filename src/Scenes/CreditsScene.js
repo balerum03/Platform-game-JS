@@ -1,4 +1,4 @@
-import 'phaser';
+import Phaser from 'phaser';
 import config from '../Config/config.js';
  
 export default class CreditsScene extends Phaser.Scene {
@@ -50,11 +50,11 @@ export default class CreditsScene extends Phaser.Scene {
     });
 
     this.menuButton = this.add.sprite(400, 500, 'blueButton1').setInteractive();
-    this.menuText = this.add.text(0, 0, 'Play', { fontSize: '32px', fill: '#fff' });
+    this.menuText = this.add.text(0, 0, 'Main Menu', { fontSize: '32px', fill: '#fff' });
     Phaser.Display.Align.In.Center(this.menuText, this.menuButton);
     
     this.menuButton.on('pointerdown', function (pointer) {
-      this.scene.start('Game');
+      this.scene.start('Title');
     }.bind(this));
   }
 };

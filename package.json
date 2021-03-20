@@ -20,15 +20,25 @@
   },
   "homepage": "https://github.com/balerum03/Platform-game-JS#readme",
   "devDependencies": {
+    "babel-eslint": "10.1.x",
     "css-loader": "^5.0.2",
+    "eslint": "6.8.x",
+    "eslint-config-airbnb-base": "14.1.x",
+    "eslint-plugin-import": "2.20.x",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.1.0",
     "style-loader": "^2.0.0",
+    "stylelint": "13.3.x",
+    "stylelint-config-standard": "20.0.x",
+    "stylelint-csstree-validator": "^1.9.0",
+    "stylelint-scss": "3.17.x",
     "webpack": "^5.22.0",
     "webpack-cli": "^4.5.0",
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "phaser": "^3.52.0"
+    "node-fetch": "^2.6.1",
+    "phaser": "^3.52.0",
+    "regenerator-runtime": "^0.13.7"
   }
 }
