@@ -1,18 +1,18 @@
 import './styles/style.css';
-import 'phaser';
+import Phaser from 'phaser';
 import config from './Config/config';
 import GameScene from './Scenes/GameScene';
 import BootScene from './Scenes/BootScene';
 import PreloaderScene from './Scenes/PreloaderScene';
 import TitleScene from './Scenes/TitleScene';
 import CreditsScene from './Scenes/CreditsScene';
-import loaders from './loaders/loader.js';
-import LeaderScene from './Scenes/LeaderScene.js';
+import loaders from './loaders/loader';
+import LeaderScene from './Scenes/LeaderScene';
 
 if (localStorage.getItem('username')) {
   document.getElementById('hide-unless-username').remove();
   class Game extends Phaser.Game {
-    constructor () {
+    constructor() {
       super(config);
       this.scene.add('Boot', BootScene);
       this.scene.add('Preloader', PreloaderScene);
@@ -33,4 +33,3 @@ if (localStorage.getItem('username')) {
     window.location.reload();
   });
 }
-

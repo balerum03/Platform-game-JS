@@ -1,29 +1,26 @@
 import Phaser from 'phaser';
-import config from '../Config/config.js';
- 
+import config from '../Config/config';
+
 export default class CreditsScene extends Phaser.Scene {
-  constructor () {
+  constructor() {
     super('Credits');
   }
- 
-  preload () {
-  }
- 
-  create () {
+
+  create() {
     this.creditsText = this.add.text(0, 0, 'Credits', { fontSize: '32px', fill: '#fff' });
     this.madeByText = this.add.text(0, 0, 'Created By: Adan Fernandez B.', { fontSize: '26px', fill: '#fff' });
-    this.zone = this.add.zone(config.width/2, config.height/2, config.width, config.height);
-    
+    this.zone = this.add.zone(config.width / 2, config.height / 2, config.width, config.height);
+
     Phaser.Display.Align.In.Center(
       this.creditsText,
-      this.zone
+      this.zone,
     );
-    
+
     Phaser.Display.Align.In.Center(
       this.madeByText,
-      this.zone
+      this.zone,
     );
-    
+
     this.madeByText.setY(1000);
 
     this.creditsTween = this.tweens.add({
@@ -32,11 +29,8 @@ export default class CreditsScene extends Phaser.Scene {
       ease: 'Power1',
       duration: 3000,
       delay: 1000,
-      onComplete: function () {
-        this.destroy;
-      }
     });
-     
+
     this.madeByTween = this.tweens.add({
       targets: this.madeByText,
       y: -300,
@@ -44,17 +38,16 @@ export default class CreditsScene extends Phaser.Scene {
       duration: 8000,
       delay: 1000,
       onComplete: function () {
-        this.madeByTween.destroy;
         this.scene.start('Title');
-      }.bind(this)
+      }.bind(this),
     });
 
     this.menuButton = this.add.sprite(400, 500, 'blueButton1').setInteractive();
     this.menuText = this.add.text(0, 0, 'Main Menu', { fontSize: '32px', fill: '#fff' });
     Phaser.Display.Align.In.Center(this.menuText, this.menuButton);
-    
-    this.menuButton.on('pointerdown', function (pointer) {
+
+    this.menuButton.on('pointerdown', () => {
       this.scene.start('Title');
-    }.bind(this));
+    });
   }
-};
+}

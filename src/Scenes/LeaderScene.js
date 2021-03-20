@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
-import loader from '../loaders/loader.js';
-import config from '../Config/config.js';
+import loader from '../loaders/loader';
+import config from '../Config/config';
+
 require('regenerator-runtime/runtime');
 
 export default class LeaderboardScene extends Phaser.Scene {
@@ -9,7 +10,6 @@ export default class LeaderboardScene extends Phaser.Scene {
   }
 
   async create() {
-    console.log('hello this is a test');
     const scores = await loader
       .fetchScores()
       .then((scoresObject) => scoresObject.result);
@@ -66,18 +66,21 @@ export default class LeaderboardScene extends Phaser.Scene {
     this.menuButton = this.add.sprite(100, 200, 'blueButton1').setInteractive();
     this.menuText = this.add.text(0, 0, 'Menu', { fontSize: '32px', fill: '#fff' });
     this.centerButton(this.menuButton, -2);
-    this.centerButtonText(this.menuText, this.menuButton);
-    
-    this.menuButton.on('pointerdown', function (pointer) {
+    Phaser.Display.Align.In.Center(this.menuText, this.menuButton);
+
+    this.menuButton.on('pointerdown', () => {
       this.scene.start('Title');
-    }.bind(this));
+    });
   }
 
-  centerButton (gameObject, offset = 0) {
-    Phaser.Display.Align.In.Center(gameObject,this.add.zone(config.width/2, config.height/2 - offset * 100, config.width, config.height));
-  }
-  
-  centerButtonText (gameText, gameButton) {
-    Phaser.Display.Align.In.Center(gameText,gameButton);
+  centerButton(gameObject, offset = 0) {
+    Phaser.Display.Align.In.Center(
+      gameObject,
+      this.add.zone(
+        config.width / 2,
+        config.height / 2 - offset * 100,
+        config.width, config.height,
+      ),
+    );
   }
 }
