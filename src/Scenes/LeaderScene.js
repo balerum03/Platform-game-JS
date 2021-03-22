@@ -1,8 +1,7 @@
 import Phaser from 'phaser';
 import loader from '../loaders/loader';
 import config from '../Config/config';
-
-require('regenerator-runtime/runtime');
+import 'regenerator-runtime/runtime';
 
 export default class LeaderboardScene extends Phaser.Scene {
   constructor() {
