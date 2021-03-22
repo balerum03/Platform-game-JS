@@ -127,7 +127,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     let minDistance = this.game.config.width;
-    this.platformGroup.getChildren().forEach(function (platform) {
+    this.platformGroup.getChildren().forEach((platform) => {
       const platformDistance = this.game.config.width - platform.x - platform.displayWidth / 2;
       minDistance = Math.min(minDistance, platformDistance);
       if (platform.x < -platform.displayWidth / 2) {

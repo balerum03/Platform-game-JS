@@ -37,9 +37,9 @@ export default class CreditsScene extends Phaser.Scene {
       ease: 'Power1',
       duration: 8000,
       delay: 1000,
-      onComplete: function () {
+      onComplete: () => {
         this.scene.start('Title');
-      }.bind(this),
+      },
     });
 
     this.menuButton = this.add.sprite(400, 500, 'blueButton1').setInteractive();

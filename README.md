@@ -9,9 +9,9 @@ This game is simple, you are a space monkey that runs and collects stars until i
 If it is the first time that you are playing, you are going to get a form on your screen asking you for your name so that the game can use it in the leaderboard.
 After entering your name you are going to be presented with the main menu also known as the titleScene.
 
-### Controlling the Character.
+### Interacting With the Game
 
-To control the character, all you have to use is the Up arrow key to jump.
+Use your mouse and right-click to interact with the different menus and the "Up arrow" key on your keyboard to jump while playing the actual game.
 
 ### Title Scene.
 
@@ -39,7 +39,7 @@ For the leaderboard, the way that it works is simple, in the form you were prese
 
 [Game Demo Link](https://elated-boyd-63e9ea.netlify.app/)
 
-## Getting Started
+## Running the Game Locally.
 
 - Install the Nodejs: https://nodejs.org/en/download/
 - Clone this repo using the following link: https://github.com/balerum03/Platform-game-JS.git
